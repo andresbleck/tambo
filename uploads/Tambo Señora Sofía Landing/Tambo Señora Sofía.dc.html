@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Piazzolla:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; -webkit-font-smoothing: antialiased; }
+    ::selection { background: #dcc9a3; }
+  </style>
+  <script src="./image-slot.js"></script>
+</helmet>
+
+<div style="--cream:#f7f1e4; --paper:#efe4cd; --green-deep:#3d4f31; --green-mid:#5f7346; --earth:#a85f36; --wood:#7c5a3a; --ink:#2c2717; --ink-soft:#5a5140; --line:rgba(44,39,23,0.14); font-family:'Karla',sans-serif; color:var(--ink); background:var(--cream); overflow-x:hidden;">
+
+  <!-- NAV -->
+  <nav style="position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; padding:16px clamp(24px,6vw,64px); background:rgba(247,241,228,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);">
+    <div style="font-family:'Piazzolla',serif; font-weight:600; font-size:19px; letter-spacing:0.02em; color:var(--green-deep);">Tambo Señora Sofía</div>
+    <div style="display:flex; gap:clamp(14px,3vw,32px); flex-wrap:wrap; font-size:14px; font-weight:600; letter-spacing:0.03em;">
+      <a href="#historia" style="color:var(--ink); text-decoration:none;" style-hover="color:var(--earth);">Historia</a>
+      <a href="#experiencia" style="color:var(--ink); text-decoration:none;" style-hover="color:var(--earth);">Experiencia</a>
+      <a href="#productos" style="color:var(--ink); text-decoration:none;" style-hover="color:var(--earth);">Productos</a>
+      <a href="#visitas" style="color:var(--ink); text-decoration:none;" style-hover="color:var(--earth);">Visitas</a>
+      <a href="#contacto" style="color:var(--ink); text-decoration:none;" style-hover="color:var(--earth);">Contacto</a>
+    </div>
+    <a href="{{ waLink }}" target="_blank" style="{{ ctaFillSmall }}">Reservar visita</a>
+  </nav>
+
+  <!-- HERO -->
+  <section style="position:relative; min-height:100vh; display:flex; align-items:flex-end;">
+    <div style="position:absolute; inset:0;">
+      <image-slot id="hero-bg" shape="rect" placeholder="Foto del tambo con las montañas del valle de fondo" style="width:100%; height:100%;"></image-slot>
+    </div>
+    <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(30,27,15,0.28) 0%, rgba(30,27,15,0.18) 45%, rgba(30,27,15,0.62) 100%); pointer-events:none;"></div>
+    <div style="position:relative; z-index:2; width:100%; padding:0 clamp(24px,6vw,80px) clamp(56px,8vw,96px); color:#fbf6ea; pointer-events:none;">
+      <div style="max-width:900px;">
+        <div style="font-size:13px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; opacity:0.85; margin-bottom:18px;">Tafí del Valle · Tucumán</div>
+        <h1 style="font-family:'Piazzolla',serif; font-weight:700; font-size:clamp(44px,8vw,88px); line-height:1.02; margin:0 0 22px; text-shadow:0 2px 24px rgba(0,0,0,0.25);">Tambo Señora Sofía</h1>
+        <p style="font-size:clamp(18px,2.2vw,24px); line-height:1.4; margin:0 0 40px; max-width:640px; font-weight:500;">El tambo robotizado más alto del mundo · Tafí del Valle, 2.782&nbsp;m</p>
+        <div style="display:flex; gap:16px; flex-wrap:wrap; pointer-events:auto;">
+          <a href="#visitas" style="{{ ctaFillLarge }}">Reservar visita</a>
+          <a href="#productos" style="{{ ctaOutlineLarge }}">Ver productos</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTORIA -->
+  <section id="historia" style="padding:clamp(72px,10vw,140px) clamp(24px,6vw,80px); background:var(--cream);">
+    <div style="max-width:1220px; margin:0 auto; display:grid; grid-template-columns:minmax(280px,1fr) minmax(300px,1.1fr); gap:clamp(40px,6vw,88px); align-items:center;">
+      <image-slot id="historia-familia" shape="rounded" radius="18" placeholder="Foto de la familia en el campo" style="width:100%; aspect-ratio:4/5; box-shadow:0 24px 48px -20px rgba(44,39,23,0.35);"></image-slot>
+      <div>
+        <div style="font-size:13px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--green-mid); margin-bottom:14px;">Nuestra historia</div>
+        <h2 style="font-family:'Piazzolla',serif; font-weight:600; font-size:clamp(30px,4vw,44px); line-height:1.1; margin:0 0 26px; color:var(--green-deep);">Un sueño familiar que empezó con una mozzarella</h2>
+        <p style="font-size:17px; line-height:1.75; color:var(--ink-soft); margin:0 0 20px;">Todo nació en 2007, con un sueño sencillo: hacer la mozzarella para la pizzería de la familia. Los primeros pasos del tambo fueron en Santiago del Estero, aprendiendo el oficio día a día.</p>
+        <p style="font-size:17px; line-height:1.75; color:var(--ink-soft); margin:0 0 20px;">En 2017 tomamos la decisión de subir el tambo a Tafí del Valle, en Tucumán, en busca del aire limpio y los pastos de altura que hoy le dan su carácter a nuestra leche.</p>
+        <p style="font-size:17px; line-height:1.75; color:var(--ink-soft); margin:0;">Hoy, la segunda generación de la familia sigue al frente del tambo, con el mismo trabajo de todos los días y el mismo cariño por la tierra y los animales que lo empezó todo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCIA -->
+  <section id="experiencia" style="padding:clamp(72px,10vw,140px) clamp(24px,6vw,80px); background:var(--green-deep); color:#f3ecd9;">
+    <div style="max-width:1220px; margin:0 auto;">
+      <div style="max-width:680px; margin-bottom:clamp(48px,6vw,72px);">
+        <div style="font-size:13px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#c7d4ac; margin-bottom:14px;">La experiencia del tambo</div>
+        <h2 style="font-family:'Piazzolla',serif; font-weight:600; font-size:clamp(30px,4vw,44px); line-height:1.15; margin:0; color:#fbf6ea;">Tecnología al servicio del bienestar animal</h2>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:clamp(32px,5vw,56px);">
+        <div>
+          <div style="font-family:'Piazzolla',serif; font-size:15px; font-weight:600; color:#c7d4ac; margin-bottom:12px;">01</div>
+          <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:22px; margin:0 0 12px; color:#fbf6ea;">Ordeñe robotizado</h3>
+          <p style="font-size:16px; line-height:1.7; color:#dbe3c4; margin:0;">Cada vaca decide cuándo quiere ser ordeñada. Va sola hasta el robot, las veces que necesita, sin horarios impuestos ni filas. El sistema hace el resto.</p>
+        </div>
+        <div>
+          <div style="font-family:'Piazzolla',serif; font-size:15px; font-weight:600; color:#c7d4ac; margin-bottom:12px;">02</div>
+          <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:22px; margin:0 0 12px; color:#fbf6ea;">Altura única</h3>
+          <p style="font-size:16px; line-height:1.7; color:#dbe3c4; margin:0;">A 2.782 metros sobre el nivel del mar, somos el tambo robotizado más alto del mundo. El clima y los pastos de altura de Tafí del Valle marcan el sabor de nuestra leche.</p>
+        </div>
+        <div>
+          <div style="font-family:'Piazzolla',serif; font-size:15px; font-weight:600; color:#c7d4ac; margin-bottom:12px;">03</div>
+          <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:22px; margin:0 0 12px; color:#fbf6ea;">Trazabilidad</h3>
+          <p style="font-size:16px; line-height:1.7; color:#dbe3c4; margin:0;">Cada ordeñe queda registrado por el sistema robotizado. Sabemos qué vaca, qué día y en qué condiciones se produjo cada litro de leche que sale del tambo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTOS -->
+  <section id="productos" style="padding:clamp(72px,10vw,140px) clamp(24px,6vw,80px); background:var(--paper);">
+    <div style="max-width:1220px; margin:0 auto;">
+      <div style="max-width:680px; margin-bottom:clamp(48px,6vw,72px);">
+        <div style="font-size:13px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--green-mid); margin-bottom:14px;">Nuestros productos</div>
+        <h2 style="font-family:'Piazzolla',serif; font-weight:600; font-size:clamp(30px,4vw,44px); line-height:1.15; margin:0; color:var(--green-deep);">Hechos a mano, con la leche de nuestras vacas</h2>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:32px;">
+        <sc-for list="{{ productos }}" as="p" hint-placeholder-count="6">
+          <div style="background:var(--cream); border-radius:16px; overflow:hidden; border:1px solid var(--line);">
+            <div style="position:relative; width:100%; aspect-ratio:4/3;">
+              <image-slot id="{{ p.slotId }}" shape="rect" placeholder="{{ p.placeholder }}" style="width:100%; height:100%;"></image-slot>
+            </div>
+            <div style="padding:22px 24px 26px;">
+              <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:20px; margin:0 0 8px; color:var(--green-deep);">{{ p.nombre }}</h3>
+              <p style="font-size:15px; line-height:1.6; color:var(--ink-soft); margin:0;">{{ p.desc }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISITAS -->
+  <section id="visitas" style="padding:clamp(72px,10vw,140px) clamp(24px,6vw,80px); background:var(--cream);">
+    <div style="max-width:1220px; margin:0 auto; display:grid; grid-template-columns:minmax(280px,1fr) minmax(320px,1fr); gap:clamp(40px,6vw,88px); align-items:start;">
+      <div>
+        <div style="font-size:13px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--green-mid); margin-bottom:14px;">Visitas guiadas</div>
+        <h2 style="font-family:'Piazzolla',serif; font-weight:600; font-size:clamp(30px,4vw,44px); line-height:1.15; margin:0 0 26px; color:var(--green-deep);">Vení a conocer el tambo</h2>
+        <p style="font-size:17px; line-height:1.75; color:var(--ink-soft); margin:0 0 16px;">Abrimos todos los días de 10 a 19 hs. El ordeñe robotizado se puede ver a las 16:30. La actividad tiene un costo por persona.</p>
+        <p style="font-size:16px; line-height:1.7; color:var(--ink-soft); margin:0 0 32px;">Podés ver a los robots trabajando, conocer a las vacas y la guachera, y darle la mamadera a los terneros.</p>
+        <a href="{{ waLink }}" target="_blank" style="{{ ctaFillLarge }}">Reservar por WhatsApp</a>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:20px;">
+        <div style="background:var(--paper); border-radius:16px; padding:28px 30px; border:1px solid var(--line);">
+          <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:19px; margin:0 0 10px; color:var(--green-deep);">Visita guiada</h3>
+          <p style="font-size:15px; line-height:1.65; color:var(--ink-soft); margin:0;">Pensada para contingentes y grupos. Un guía acompaña todo el recorrido y explica el funcionamiento del tambo.</p>
+        </div>
+        <div style="background:var(--paper); border-radius:16px; padding:28px 30px; border:1px solid var(--line);">
+          <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:19px; margin:0 0 10px; color:var(--green-deep);">Visita autoguiada</h3>
+          <p style="font-size:15px; line-height:1.65; color:var(--ink-soft); margin:0;">Ideal para familias. Recorré el tambo a tu ritmo, con carteles y señalización en todo el camino.</p>
+        </div>
+        <div style="background:var(--wood); border-radius:16px; padding:24px 30px;">
+          <p style="font-size:14px; line-height:1.6; color:#f3ecd9; margin:0; font-weight:600;">Qué se puede hacer: ver los robots de ordeñe, ver las vacas, conocer la guachera y darle la mamadera a los terneros.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" style="padding:clamp(72px,10vw,140px) clamp(24px,6vw,80px); background:var(--green-deep); color:#f3ecd9;">
+    <div style="max-width:1220px; margin:0 auto; display:grid; grid-template-columns:minmax(280px,0.9fr) minmax(320px,1.1fr); gap:clamp(40px,6vw,88px); align-items:center;">
+      <div>
+        <div style="font-size:13px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#c7d4ac; margin-bottom:14px;">Ubicación y contacto</div>
+        <h2 style="font-family:'Piazzolla',serif; font-weight:600; font-size:clamp(28px,4vw,40px); line-height:1.15; margin:0 0 28px; color:#fbf6ea;">Te esperamos en el valle</h2>
+        <div style="display:flex; flex-direction:column; gap:18px; font-size:16px; line-height:1.6;">
+          <div>
+            <div style="font-weight:700; color:#fbf6ea; margin-bottom:4px;">Dirección</div>
+            <div style="color:#dbe3c4;">Ruta Provincial 307, km 74, La Bolsa / Dique La Angostura, Tafí del Valle, Tucumán</div>
+          </div>
+          <div>
+            <div style="font-weight:700; color:#fbf6ea; margin-bottom:4px;">WhatsApp</div>
+            <a href="{{ waLink }}" target="_blank" style="color:#dbe3c4; text-decoration:none; border-bottom:1px solid #6c8055;" style-hover="color:#fbf6ea;">3816522774</a>
+          </div>
+          <div>
+            <div style="font-weight:700; color:#fbf6ea; margin-bottom:4px;">Instagram</div>
+            <a href="https://instagram.com/tambossofia" target="_blank" style="color:#dbe3c4; text-decoration:none; border-bottom:1px solid #6c8055;" style-hover="color:#fbf6ea;">@tambossofia</a>
+          </div>
+        </div>
+      </div>
+      <image-slot id="mapa" shape="rounded" radius="18" placeholder="Mapa de ubicación · Dique La Angostura, Tafí del Valle" style="width:100%; aspect-ratio:4/3;"></image-slot>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="padding:28px clamp(24px,6vw,80px); background:var(--ink); color:#c9c2ad; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:13px;">
+    <div>© 2026 Tambo Señora Sofía · Tafí del Valle, Tucumán</div>
+    <div>Hecho con cariño, de campo</div>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: {},
+  &quot;accentColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#a85f36&quot;, &quot;options&quot;: [&quot;#a85f36&quot;, &quot;#7c5a3a&quot;, &quot;#8a6f2e&quot;, &quot;#5f7346&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Marca&quot; },
+  &quot;whatsappNumber&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;5493816522774&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Contacto&quot; }
+}">
+class Component extends DCLogic {
+  renderVals() {
+    const accent = this.props.accentColor ?? '#a85f36';
+    const wa = this.props.whatsappNumber ?? '5493816522774';
+    const msg = encodeURIComponent('Hola! Quiero reservar una visita al Tambo Señora Sofía.');
+    const productos = [
+      { slotId: 'prod-mozzarella', nombre: 'Mozzarella', desc: 'La que le dio origen al tambo: elaborada a diario para pizzerías y para la mesa de todos los días.', placeholder: 'Foto de mozzarella' },
+      { slotId: 'prod-quesos-tafi', nombre: 'Quesos de Tafí', desc: 'Con denominación de origen. Maduración lenta y el sabor propio de los pastos de altura.', placeholder: 'Foto de queso de Tafí' },
+      { slotId: 'prod-quesillo', nombre: 'Quesillo', desc: 'Fresco y suave, tal como se hace en el norte, ideal con dulce de leche o miel.', placeholder: 'Foto de quesillo' },
+      { slotId: 'prod-dulce-leche', nombre: 'Dulce de leche', desc: 'Cocido despacio, con la leche de nuestras propias vacas.', placeholder: 'Foto de dulce de leche' },
+      { slotId: 'prod-leche-entera', nombre: 'Leche entera', desc: 'Directo del tambo, con la trazabilidad de cada ordeñe robotizado.', placeholder: 'Foto de leche entera' },
+      { slotId: 'prod-leche-choco', nombre: 'Leche chocolatada', desc: 'La misma leche de siempre, con un toque de cacao para los más chicos.', placeholder: 'Foto de leche chocolatada' },
+    ];
+    const base = { textDecoration: 'none', fontWeight: 700, borderRadius: '999px', display: 'inline-block', textAlign: 'center', transition: 'opacity .15s ease' };
+    return {
+      productos,
+      waLink: `https://wa.me/${wa}?text=${msg}`,
+      ctaFillLarge: { ...base, background: accent, color: '#fbf6ea', padding: '16px 32px', fontSize: '16px' },
+      ctaOutlineLarge: { ...base, background: 'transparent', color: '#fbf6ea', border: '1.5px solid rgba(251,246,234,0.75)', padding: '16px 32px', fontSize: '16px' },
+      ctaFillSmall: { ...base, background: accent, color: '#fbf6ea', padding: '10px 20px', fontSize: '14px' },
+    };
+  }
+}
+</script>
+</body>
+</html>
