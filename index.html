@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Piazzolla:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; -webkit-font-smoothing: antialiased; }
+    ::selection { background: #dcc9a3; }
+    @media (max-width: 760px) {
+      .stack-md { grid-template-columns: 1fr !important; }
+      .nav-links { display: none !important; }
+      .productos-grid { grid-template-columns: 1fr !important; }
+      .exp-bg-desktop { display: none !important; }
+      .exp-bg-mobile { display: block !important; }
+      .nav-cta { display: none !important; }
+      .nav-burger { display: flex !important; }
+      .hero-section { justify-content: center !important; }
+      .hero-text-block { padding-top: 28px !important; padding-bottom: 28px !important; background: none !important; backdrop-filter: none !important; border-radius: 0 !important; transform: none !important; margin-top: 0 !important; }
+      .hero-scroll-indicator { display: none !important; }
+      .hero-section { min-height: 72vh !important; }
+    }
+    .mobile-menu { position: fixed; top: 0; right: 0; height: 100vh; width: min(78vw, 320px); transform: translateX(100%); transition: transform .3s ease; z-index: 60; box-shadow: -8px 0 24px rgba(0,0,0,0.15); }
+    .mobile-menu.open { transform: translateX(0); }
+    .menu-scrim { position: fixed; inset: 0; background: rgba(20,17,10,0.4); opacity: 0; pointer-events: none; transition: opacity .3s ease; z-index: 55; }
+    .menu-scrim.open { opacity: 1; pointer-events: auto; }
+    @media (min-width: 761px) and (max-width: 1000px) {
+      .productos-grid { grid-template-columns: repeat(2,1fr) !important; }
+    }
+
+    .hero-mobile-slot { display: none; }
+    @media (max-width: 760px) {
+      .hero-desktop-slot { display: none; }
+      .hero-mobile-slot { display: block; }
+    }
+
+    @media (max-width: 760px) {
+      #historia .stack-md > image-slot { display: none !important; }
+    }
+
+    .section-label { font-size: 13px; }
+    @media (max-width: 760px) {
+      .section-label { font-size: 16px !important; }
+    }
+
+    .footer-desktop { display: flex !important; }
+    .footer-mobile { display: none !important; }
+    @media (max-width: 760px) {
+      .footer-desktop { display: none !important; }
+      .footer-mobile { display: flex !important; }
+    }
+
+    .exp-icon { display: flex; }
+    @media (max-width: 760px) {
+      .exp-icon { display: none; }
+    }
+  </style>
+  <script src="./image-slot.js"></script>
+</helmet>
+
+<div style="--cream:#f7f1e4; --paper:#efe4cd; --green-deep:#3d4f31; --green-mid:#5f7346; --earth:#a85f36; --wood:#7c5a3a; --ink:#2c2717; --ink-soft:#5a5140; --line:rgba(44,39,23,0.14); font-family:'Karla',sans-serif; color:var(--ink); background:var(--cream); overflow-x:hidden;">
+
+  <!-- NAV -->
+  <nav style="position:sticky; top:0; z-index:50; background:rgba(247,241,228,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);">
+    <div style="display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; padding:16px clamp(24px,6vw,64px);">
+      <div style="font-family:'Piazzolla',serif; font-weight:600; font-size:19px; letter-spacing:0.02em; color:var(--green-deep);">Tambo La Sofía</div>
+      <div class="nav-links" style="display:flex; gap:clamp(14px,3vw,32px); flex-wrap:wrap; font-size:14px; font-weight:600; letter-spacing:0.03em;">
+        <a href="#historia" style="color:var(--ink); text-decoration:none;" style-hover="color:var(--earth);">Historia</a>
+        <a href="#experiencia" style="color:var(--ink); text-decoration:none;" style-hover="color:var(--earth);">Experiencia</a>
+        <a href="#productos" style="color:var(--ink); text-decoration:none;" style-hover="color:var(--earth);">Productos</a>
+        <a href="#visitas" style="color:var(--ink); text-decoration:none;" style-hover="color:var(--earth);">Visitas</a>
+        <a href="#contacto" style="color:var(--ink); text-decoration:none;" style-hover="color:var(--earth);">Contacto</a>
+      </div>
+      <a href="{{ waLink }}" target="_blank" class="nav-cta" style="{{ ctaFillSmall }}">Reservar visita</a>
+      <button onClick="{{ toggleMenu }}" class="nav-burger" aria-label="Menú" style="display:none; background:none; border:none; padding:4px; cursor:pointer; flex-direction:column; gap:5px;">
+        <span style="width:24px; height:2px; background:var(--green-deep); border-radius:1px;"></span>
+        <span style="width:24px; height:2px; background:var(--green-deep); border-radius:1px;"></span>
+        <span style="width:24px; height:2px; background:var(--green-deep); border-radius:1px;"></span>
+      </button>
+    </div>
+    <div class="menu-scrim {{ menuOpenClass }}" onClick="{{ closeMenu }}"></div>
+    <div class="mobile-menu {{ menuOpenClass }}" style="display:flex; flex-direction:column; padding:20px 28px 24px; background:var(--cream);">
+      <div style="display:flex; justify-content:flex-end; margin-bottom:32px;">
+        <button onClick="{{ closeMenu }}" aria-label="Cerrar menú" style="background:rgba(61,79,49,0.1); border:none; border-radius:10px; width:38px; height:38px; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green-deep)" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <a href="#historia" onClick="{{ closeMenu }}" style="padding:14px 0; border-top:1px solid var(--line); color:var(--green-deep); text-decoration:none; font-size:16px; font-weight:600;">Historia</a>
+      <a href="#experiencia" onClick="{{ closeMenu }}" style="padding:14px 0; border-top:1px solid var(--line); color:var(--green-deep); text-decoration:none; font-size:16px; font-weight:600;">Experiencia</a>
+      <a href="#productos" onClick="{{ closeMenu }}" style="padding:14px 0; border-top:1px solid var(--line); color:var(--green-deep); text-decoration:none; font-size:16px; font-weight:600;">Productos</a>
+      <a href="#visitas" onClick="{{ closeMenu }}" style="padding:14px 0; border-top:1px solid var(--line); color:var(--green-deep); text-decoration:none; font-size:16px; font-weight:600;">Visitas</a>
+      <a href="#contacto" onClick="{{ closeMenu }}" style="padding:14px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); color:var(--green-deep); text-decoration:none; font-size:16px; font-weight:600;">Contacto</a>
+      <a href="{{ waLink }}" target="_blank" style="margin-top:24px; text-align:center; {{ ctaFillSmall }}">Reservar visita</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero-section" style="position:relative; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; text-align:center; padding-bottom:0; overflow:visible;">
+    <div class="hero-desktop-slot" style="position:absolute; inset:0;">
+      <image-slot id="hero-bg" shape="rect" placeholder="Foto del tambo con las montañas del valle de fondo" style="width:100%; height:100%;" src="/uploads/hero-desktop2.webp"></image-slot>
+    </div>
+    <div class="hero-mobile-slot" style="position:absolute; inset:0;">
+      <image-slot id="hero-bg-mobile" shape="rect" placeholder="Foto del tambo (versión vertical, mobile)" style="width:100%; height:100%;" src="/uploads/hero-responsive.jpg"></image-slot>
+    </div>
+    <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(14,12,7,0.54) 0%, rgba(14,12,7,0.32) 30%, rgba(14,12,7,0.41) 55%, rgba(14,12,7,0.58) 100%); pointer-events:none;"></div>
+    <div style="position:absolute; inset:0; background:radial-gradient(ellipse 65% 50% at 50% 55%, rgba(8,7,4,0.62) 0%, rgba(8,7,4,0.15) 55%, rgba(8,7,4,0) 80%); pointer-events:none;"></div>
+    <div class="hero-text-block" style="position:relative; z-index:2; padding:0 clamp(24px,6vw,80px); color:#fbf6ea; pointer-events:none; display:flex; flex-direction:column; align-items:center; transform:translateY(65px);">
+      <div style="display:inline-flex; align-items:center; gap:10px; padding:8px 18px; border:1px solid rgba(251,246,234,0.4); border-radius:999px; font-size:12px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:32px; background:rgba(16,14,8,0.3); backdrop-filter:blur(4px);">2.782 m · Tafí del Valle</div>
+      <h1 style="font-family:'Piazzolla',serif; font-weight:600; letter-spacing:-0.01em; font-size:clamp(42px,7vw,86px); line-height:1.05; margin:0 0 22px; text-shadow:0 4px 28px rgba(0,0,0,0.5);">Tambo<br/>La Sofía</h1>
+      <p style="font-size:clamp(16px,1.6vw,20px); line-height:1.4; margin:0 0 40px; max-width:560px; font-weight:500; letter-spacing:0.01em; text-shadow:0 2px 14px rgba(0,0,0,0.45);">El tambo robotizado más alto del mundo</p>
+      <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center; pointer-events:auto;">
+        <a href="#visitas" style="{{ ctaFillLarge }}">Reservar visita</a>
+        <a href="#productos" style="{{ ctaOutlineLarge }}">Ver productos</a>
+      </div>
+    </div>
+    <div class="hero-scroll-indicator" style="position:relative; z-index:2; width:100%; display:flex; justify-content:center; padding-bottom:40px; margin-top:auto;">
+      <div style="width:1px; height:56px; background:rgba(251,246,234,0.5);"></div>
+    </div>
+
+  </section>
+
+  <!-- HISTORIA -->
+  <section id="historia" style="padding:clamp(72px,10vw,140px) clamp(24px,6vw,80px); background:var(--cream);">
+    <div class="stack-md" data-reveal="1" style="max-width:1220px; margin:0 auto; display:grid; grid-template-columns:minmax(280px,1fr) minmax(300px,1.1fr); gap:clamp(40px,6vw,88px); align-items:center;">
+      <image-slot id="historia-familia" class="familia-image" shape="rounded" radius="18" placeholder="Foto de la familia en el campo" style="width:100%; aspect-ratio:4/5; box-shadow:0 24px 48px -20px rgba(44,39,23,0.35);" src="/uploads/familia.jpeg"></image-slot>
+      <div>
+        <div class="section-label" style="font-size:13px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--green-mid); margin-bottom:14px;">Nuestra historia</div>
+        <h2 style="font-family:'Piazzolla',serif; font-weight:600; font-size:clamp(30px,4vw,44px); line-height:1.1; margin:0 0 26px; color:var(--green-deep);">Un sueño familiar que empezó con una mozzarella</h2>
+        <p style="font-size:17px; line-height:1.75; color:var(--ink-soft); margin:0 0 20px;">Todo nació en 2007, con un sueño sencillo: hacer la mozzarella para la pizzería de la familia. Los primeros pasos del tambo fueron en Santiago del Estero, aprendiendo el oficio día a día.</p>
+        <p style="font-size:17px; line-height:1.75; color:var(--ink-soft); margin:0 0 20px;">En 2017 tomamos la decisión de subir el tambo a Tafí del Valle, en Tucumán, en busca del aire limpio y los pastos de altura que hoy le dan su carácter a nuestra leche.</p>
+        <p style="font-size:17px; line-height:1.75; color:var(--ink-soft); margin:0;">Hoy, la segunda generación de la familia sigue al frente del tambo, con el mismo trabajo de todos los días y el mismo cariño por la tierra y los animales que lo empezó todo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCIA -->
+  <section id="experiencia" style="position:relative; padding:clamp(72px,10vw,140px) clamp(24px,6vw,80px); color:#f3ecd9; overflow:hidden;">
+    <div class="exp-bg-desktop" style="position:absolute; inset:0;">
+      <image-slot id="experiencia-bg" shape="rect" placeholder="Foto de las vacas pastando con las montañas de fondo" style="width:100%; height:100%;" src="/uploads/robot-desktop.webp"></image-slot>
+    </div>
+    <div class="exp-bg-mobile" style="position:absolute; inset:0; display:none;">
+      <image-slot id="experiencia-bg-mobile" shape="rect" placeholder="Foto del ordeñe (versión mobile)" style="width:100%; height:100%;" src="/uploads/robot-mobile.png"></image-slot>
+    </div>
+    <div class="exp-bg-desktop" style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(30,38,20,0.88) 0%, rgba(30,38,20,0.82) 100%);"></div>
+    <div class="exp-bg-mobile" style="position:absolute; inset:0; background:rgba(60,44,28,0.82); display:none;"></div>
+    <div style="position:relative; z-index:2; max-width:1220px; margin:0 auto;">
+      <div style="max-width:680px; margin-bottom:clamp(48px,6vw,72px);">
+        <div class="section-label" style="font-size:13px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#c7d4ac; margin-bottom:14px;">La experiencia del tambo</div>
+        <h2 style="font-family:'Piazzolla',serif; font-weight:600; font-size:clamp(30px,4vw,44px); line-height:1.15; margin:0; color:#fbf6ea;">Tecnología al servicio del bienestar animal</h2>
+      </div>
+      <div data-reveal="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:clamp(32px,5vw,56px);">
+        <div>
+          <div class="exp-icon" style="width:52px; height:52px; border-radius:14px; background:rgba(251,246,234,0.12); align-items:center; justify-content:center; margin-bottom:20px;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fbf6ea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="4"/><path d="M8 12.5c-1.5 1-2 3-2 5.5h12c0-2.5-.5-4.5-2-5.5"/><path d="M9 21h6"/></svg>
+          </div>
+          <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:22px; margin:0 0 12px; color:#fbf6ea;">Ordeñe robotizado</h3>
+          <p style="font-size:16px; line-height:1.7; color:#dbe3c4; margin:0;">Cada vaca decide cuándo quiere ser ordeñada. Va sola hasta el robot, las veces que necesita, sin horarios impuestos ni filas. El sistema hace el resto.</p>
+        </div>
+        <div>
+          <div class="exp-icon" style="width:52px; height:52px; border-radius:14px; background:rgba(251,246,234,0.12); align-items:center; justify-content:center; margin-bottom:20px;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fbf6ea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18l5-9 3 4 3-6 4 7 3-5"/><path d="M3 18h18"/></svg>
+          </div>
+          <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:22px; margin:0 0 12px; color:#fbf6ea;">Altura única</h3>
+          <p style="font-size:16px; line-height:1.7; color:#dbe3c4; margin:0;">Somos el tambo robotizado más alto del mundo. El clima y los pastos de altura de Tafí del Valle marcan el sabor de nuestra leche.</p>
+        </div>
+        <div>
+          <div class="exp-icon" style="width:52px; height:52px; border-radius:14px; background:rgba(251,246,234,0.12); align-items:center; justify-content:center; margin-bottom:20px;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fbf6ea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:22px; margin:0 0 12px; color:#fbf6ea;">Trazabilidad</h3>
+          <p style="font-size:16px; line-height:1.7; color:#dbe3c4; margin:0;">Cada ordeñe queda registrado por el sistema robotizado. Sabemos qué vaca, qué día y en qué condiciones se produjo cada litro de leche que sale del tambo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTOS -->
+  <section id="productos" style="padding:clamp(72px,10vw,140px) clamp(24px,6vw,80px); background:var(--paper);">
+    <div style="max-width:1220px; margin:0 auto;">
+      <div style="max-width:680px; margin-bottom:clamp(48px,6vw,72px);">
+        <div class="section-label" style="font-size:13px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--green-mid); margin-bottom:14px;">Nuestros productos</div>
+        <h2 style="font-family:'Piazzolla',serif; font-weight:600; font-size:clamp(30px,4vw,44px); line-height:1.15; margin:0; color:var(--green-deep);">Hechos a mano, con la leche de nuestras vacas</h2>
+      </div>
+      <div data-reveal="1" class="productos-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:32px;">
+        <sc-for list="{{ productos }}" as="p" hint-placeholder-count="6">
+          <div style="background:var(--cream); border-radius:16px; overflow:hidden; border:1px solid var(--line);">
+            <div style="position:relative; width:100%; aspect-ratio:4/3;">
+              <image-slot id="{{ p.slotId }}" shape="rect" placeholder="{{ p.placeholder }}" style="width:100%; height:100%;" src="{{ p.imagen }}"></image-slot>
+            </div>
+            <div style="padding:22px 24px 26px;">
+              <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:20px; margin:0 0 8px; color:var(--green-deep);">{{ p.nombre }}</h3>
+              <p style="font-size:15px; line-height:1.6; color:var(--ink-soft); margin:0;">{{ p.desc }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISITAS -->
+  <section id="visitas" style="padding:clamp(72px,10vw,140px) clamp(24px,6vw,80px); background:var(--cream);">
+    <div class="stack-md" data-reveal="1" style="max-width:1220px; margin:0 auto; display:grid; grid-template-columns:minmax(280px,1fr) minmax(320px,1fr); gap:clamp(40px,6vw,88px); align-items:start;">
+      <div>
+        <div class="section-label" style="font-size:13px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--green-mid); margin-bottom:14px;">Visitas guiadas</div>
+        <h2 style="font-family:'Piazzolla',serif; font-weight:600; font-size:clamp(30px,4vw,44px); line-height:1.15; margin:0 0 26px; color:var(--green-deep);">Vení a conocer el tambo</h2>
+        <p style="font-size:17px; line-height:1.75; color:var(--ink-soft); margin:0 0 16px;">Abrimos todos los días de 10 a 19 hs. El ordeñe robotizado se puede ver a las 16:30. La actividad tiene un costo por persona.</p>
+        <p style="font-size:16px; line-height:1.7; color:var(--ink-soft); margin:0 0 32px;">Podés ver a los robots trabajando, conocer a las vacas y la guachera, y darle la mamadera a los terneros.</p>
+        <a href="{{ waLink }}" target="_blank" style="{{ ctaFillLarge }}">Reservar por WhatsApp</a>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:20px;">
+        <div style="background:var(--paper); border-radius:16px; padding:28px 30px; border:1px solid var(--line);">
+          <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:19px; margin:0 0 10px; color:var(--green-deep);">Visita guiada</h3>
+          <p style="font-size:15px; line-height:1.65; color:var(--ink-soft); margin:0;">Pensada para contingentes y grupos. Un guía acompaña todo el recorrido y explica el funcionamiento del tambo.</p>
+        </div>
+        <div style="background:var(--paper); border-radius:16px; padding:28px 30px; border:1px solid var(--line);">
+          <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:19px; margin:0 0 10px; color:var(--green-deep);">Visita autoguiada</h3>
+          <p style="font-size:15px; line-height:1.65; color:var(--ink-soft); margin:0;">Ideal para familias. Recorré el tambo a tu ritmo, con carteles y señalización en todo el camino.</p>
+        </div>
+        <div style="background:var(--wood); border-radius:16px; padding:24px 30px;">
+          <p style="font-size:14px; line-height:1.6; color:#f3ecd9; margin:0; font-weight:600;">Qué se puede hacer: ver los robots de ordeñe, ver las vacas, conocer la guachera y darle la mamadera a los terneros.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" style="padding:clamp(72px,10vw,140px) clamp(24px,6vw,80px); background:var(--green-deep); color:#f3ecd9;">
+    <div style="max-width:1220px; margin:0 auto;">
+      <div style="max-width:680px; margin-bottom:clamp(48px,6vw,72px);">
+        <div class="section-label" style="font-size:13px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#c7d4ac; margin-bottom:14px;">Ubicación y contacto</div>
+        <h2 style="font-family:'Piazzolla',serif; font-weight:600; font-size:clamp(28px,4vw,40px); line-height:1.15; margin:0; color:#fbf6ea;">Te esperamos en el valle</h2>
+      </div>
+      <div class="stack-md" data-reveal="1" style="display:grid; grid-template-columns:minmax(280px,0.85fr) minmax(320px,1.15fr); gap:clamp(40px,6vw,72px); align-items:stretch; margin-bottom:clamp(32px,5vw,48px);">
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div style="background:rgba(251,246,234,0.06); border:1px solid rgba(251,246,234,0.14); border-radius:16px; padding:26px 28px;">
+            <div style="font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#c7d4ac; margin-bottom:10px;">Dirección</div>
+            <div style="font-size:17px; line-height:1.55; color:#fbf6ea; margin-bottom:14px;">Ruta Provincial 307, km 74, Tafí del Valle, Tucumán</div>
+            <a href="https://google.com/maps/dir/?api=1&destination=Tambo+La+Sofia,+Tafi+del+Valle,+Tucuman" target="_blank" style="font-size:14px; font-weight:700; color:#c7d4ac; text-decoration:none; border-bottom:1px solid #6c8055;" style-hover="color:#fbf6ea;">Cómo llegar →</a>
+          </div>
+          <div style="background:rgba(251,246,234,0.06); border:1px solid rgba(251,246,234,0.14); border-radius:16px; padding:26px 28px;">
+            <div style="font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#c7d4ac; margin-bottom:10px;">Horarios</div>
+            <div style="font-size:17px; line-height:1.55; color:#fbf6ea; margin-bottom:6px;">Todos los días, de 10 a 19 hs</div>
+            <div style="font-size:15px; line-height:1.5; color:#dbe3c4;">Ordeñe robotizado a las 16:30 hs</div>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px;">
+            <a href="{{ waLink }}" target="_blank" title="WhatsApp" style="display:flex; align-items:center; justify-content:center; aspect-ratio:1; background:rgba(251,246,234,0.06); border:1px solid rgba(251,246,234,0.14); border-radius:16px; text-decoration:none;" style-hover="background:rgba(251,246,234,0.12);">
+              <svg width="34" height="34" viewBox="0 0 32 32" fill="none"><path d="M16 4C9.4 4 4 9.4 4 16c0 2.2.6 4.3 1.7 6.1L4 28l6.1-1.6C11.8 27.4 13.9 28 16 28c6.6 0 12-5.4 12-12S22.6 4 16 4Z" stroke="#fbf6ea" stroke-width="1.7" stroke-linejoin="round"/><path d="M11.5 11.7c.2-.5.6-.5.9-.5h.7c.2 0 .5 0 .7.5.3.6.9 2 1 2.2.1.2.1.4 0 .6-.1.2-.2.3-.4.5l-.5.5c-.2.2-.3.4-.1.7.5.8 1.1 1.5 1.8 2.1.7.6 1.4 1 2.2 1.4.3.1.5.1.7-.1l.6-.6c.2-.2.4-.3.7-.2.2.1 1.5.7 2.1 1 .2.1.4.2.5.4.1.2.1.9-.2 1.5-.3.6-1.6 1.3-2.3 1.3-.6 0-2.6-.4-4.9-2.4-2.7-2.4-3.7-4.9-3.9-5.5-.2-.6-.1-1.4.1-1.9Z" fill="#fbf6ea"/></svg>
+            </a>
+            <a href="https://instagram.com/tambossofia" target="_blank" title="Instagram" style="display:flex; align-items:center; justify-content:center; aspect-ratio:1; background:rgba(251,246,234,0.06); border:1px solid rgba(251,246,234,0.14); border-radius:16px; text-decoration:none;" style-hover="background:rgba(251,246,234,0.12);">
+              <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#fbf6ea" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17.2" cy="6.8" r="0.9" fill="#fbf6ea" stroke="none"/></svg>
+            </a>
+            <a href="#" target="_blank" title="TikTok" style="display:flex; align-items:center; justify-content:center; aspect-ratio:1; background:rgba(251,246,234,0.06); border:1px solid rgba(251,246,234,0.14); border-radius:16px; text-decoration:none;" style-hover="background:rgba(251,246,234,0.12);">
+              <svg width="38" height="38" viewBox="0 0 24 24" fill="#fbf6ea"><path d="M16.6 3h-3.2v13.1c0 1.4-1.1 2.5-2.5 2.5s-2.5-1.1-2.5-2.5 1.1-2.5 2.5-2.5c.3 0 .5 0 .8.1v-3.2c-.3 0-.5-.1-.8-.1-3.1 0-5.7 2.5-5.7 5.7s2.5 5.7 5.7 5.7 5.7-2.5 5.7-5.7V9.3c1.2.9 2.7 1.4 4.3 1.4V7.5c-2.4 0-4.3-1.9-4.3-4.3V3Z"/></svg>
+            </a>
+          </div>
+        </div>
+        <iframe title="Ubicación Tambo Señora Sofía" src="https://maps.google.com/maps?q=Tambo+La+Sofia+Tafi+del+Valle&z=13&output=embed" style="width:100%; height:100%; min-height:340px; border:0; border-radius:18px;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="padding:40px clamp(24px,6vw,80px); background:var(--ink); color:#c9c2ad;">
+    <!-- Desktop Footer -->
+    <div class="footer-desktop" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:13px;">
+      <div>© 2026 Tambo Señora Sofía · Tafí del Valle, Tucumán</div>
+      <div>Hecho con cariño, de campo</div>
+    </div>
+
+    <!-- Mobile Footer -->
+    <div class="footer-mobile" style="flex-direction:column; gap:20px;">
+      <div style="display:flex; justify-content:space-between; gap:20px;">
+        <!-- Horarios con logo reloj -->
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#8d8474;">Horarios</div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fbf6ea" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <div style="font-size:13px; font-weight:600; color:#fbf6ea;">10 a 19 hs</div>
+          </div>
+        </div>
+
+        <!-- Redes Sociales -->
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#8d8474;">Redes Sociales</div>
+          <div style="display:flex; gap:8px;">
+            <a href="{{ waLink }}" target="_blank" title="WhatsApp" style="display:flex; align-items:center; justify-content:center; width:36px; height:36px; background:rgba(251,246,234,0.06); border:1px solid rgba(251,246,234,0.14); border-radius:8px; text-decoration:none;">
+              <svg width="20" height="20" viewBox="0 0 32 32" fill="none"><path d="M16 4C9.4 4 4 9.4 4 16c0 2.2.6 4.3 1.7 6.1L4 28l6.1-1.6C11.8 27.4 13.9 28 16 28c6.6 0 12-5.4 12-12S22.6 4 16 4Z" stroke="#fbf6ea" stroke-width="1.7" stroke-linejoin="round"/><path d="M11.5 11.7c.2-.5.6-.5.9-.5h.7c.2 0 .5 0 .7.5.3.6.9 2 1 2.2.1.2.1.4 0 .6-.1.2-.2.3-.4.5l-.5.5c-.2.2-.3.4-.1.7.5.8 1.1 1.5 1.8 2.1.7.6 1.4 1 2.2 1.4.3.1.5.1.7-.1l.6-.6c.2-.2.4-.3.7-.2.2.1 1.5.7 2.1 1 .2.1.4.2.5.4.1.2.1.9-.2 1.5-.3.6-1.6 1.3-2.3 1.3-.6 0-2.6-.4-4.9-2.4-2.7-2.4-3.7-4.9-3.9-5.5-.2-.6-.1-1.4.1-1.9Z" fill="#fbf6ea"/></svg>
+            </a>
+            <a href="https://instagram.com/tambossofia" target="_blank" title="Instagram" style="display:flex; align-items:center; justify-content:center; width:36px; height:36px; background:rgba(251,246,234,0.06); border:1px solid rgba(251,246,234,0.14); border-radius:8px; text-decoration:none;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbf6ea" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17.2" cy="6.8" r="0.9" fill="#fbf6ea" stroke="none"/></svg>
+            </a>
+            <a href="#" target="_blank" title="TikTok" style="display:flex; align-items:center; justify-content:center; width:36px; height:36px; background:rgba(251,246,234,0.06); border:1px solid rgba(251,246,234,0.14); border-radius:8px; text-decoration:none;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#fbf6ea"><path d="M16.6 3h-3.2v13.1c0 1.4-1.1 2.5-2.5 2.5s-2.5-1.1-2.5-2.5 1.1-2.5 2.5-2.5c.3 0 .5 0 .8.1v-3.2c-.3 0-.5-.1-.8-.1-3.1 0-5.7 2.5-5.7 5.7s2.5 5.7 5.7 5.7 5.7-2.5 5.7-5.7V9.3c1.2.9 2.7 1.4 4.3 1.4V7.5c-2.4 0-4.3-1.9-4.3-4.3V3Z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div style="padding-top:16px; border-top:1px solid rgba(251,246,234,0.1); font-size:12px; line-height:1.5; color:#8d8474;">
+        © 2026 Tambo Señora Sofía · Tafí del Valle, Tucumán<br/>Hecho con cariño, de campo
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: {},
+  &quot;accentColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#5f7346&quot;, &quot;options&quot;: [&quot;#5f7346&quot;, &quot;#a85f36&quot;, &quot;#7c5a3a&quot;, &quot;#8a6f2e&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Marca&quot; },
+  &quot;whatsappNumber&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;5493816522774&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Contacto&quot; }
+}">
+class Component extends DCLogic {
+  state = { menuOpen: false };
+  renderVals() {
+    const accent = this.props.accentColor ?? '#5f7346';
+    const wa = this.props.whatsappNumber ?? '5493816522774';
+    const msg = encodeURIComponent('Hola! Quiero reservar una visita al Tambo Señora Sofía.');
+    const productos = [
+      { slotId: 'prod-mozzarella', nombre: 'Mozzarella', desc: 'La que le dio origen al tambo: elaborada a diario para pizzerías y para la mesa de todos los días.', placeholder: 'Foto de mozzarella', imagen: '/uploads/products/mozzarella-src.jpeg' },
+      { slotId: 'prod-quesos-tafi', nombre: 'Quesos de Tafí', desc: 'Con denominación de origen. Maduración lenta y el sabor propio de los pastos de altura.', placeholder: 'Foto de queso de Tafí', imagen: '/uploads/products/quesoq.jpg' },
+      { slotId: 'prod-quesillo', nombre: 'Quesillo', desc: 'Fresco y suave, tal como se hace en el norte, ideal con dulce de leche o miel.', placeholder: 'Foto de quesillo', imagen: '/uploads/products/quesillo-src.jpeg' },
+      { slotId: 'prod-dulce-leche', nombre: 'Dulce de leche', desc: 'Cocido despacio, con la leche de nuestras propias vacas.', placeholder: 'Foto de dulce de leche', imagen: '/uploads/products/dulcedeleche-src.jpeg' },
+      { slotId: 'prod-leche-entera', nombre: 'Leche entera', desc: 'Directo del tambo, con la trazabilidad de cada ordeñe robotizado.', placeholder: 'Foto de leche entera', imagen: '/uploads/products/leche.webp' },
+      { slotId: 'prod-leche-choco', nombre: 'Leche chocolatada', desc: 'La misma leche de siempre, con un toque de cacao para los más chicos.', placeholder: 'Foto de leche chocolatada', imagen: '/uploads/products/chocolatada.webp' },
+    ];
+    const base = { textDecoration: 'none', fontWeight: 700, borderRadius: '999px', display: 'inline-block', textAlign: 'center', transition: 'opacity .15s ease' };
+    return {
+      menuOpenClass: this.state.menuOpen ? 'open' : '',
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      productos,
+      waLink: `https://wa.me/${wa}?text=${msg}`,
+      ctaFillLarge: { ...base, background: accent, color: '#fbf6ea', padding: '15px 30px', fontSize: '15px', letterSpacing: '0.01em', boxShadow: '0 8px 20px -8px rgba(0,0,0,0.45)' },
+      ctaOutlineLarge: { ...base, background: 'rgba(16,14,8,0.15)', color: '#fbf6ea', border: '1.5px solid rgba(251,246,234,0.6)', padding: '15px 30px', fontSize: '15px', letterSpacing: '0.01em', backdropFilter: 'blur(4px)' },
+      ctaFillSmall: { ...base, background: accent, color: '#fbf6ea', padding: '10px 20px', fontSize: '14px' },
+    };
+  }
+}
+</script>
+</body>
+</html>
