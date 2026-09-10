@@ -18,7 +18,8 @@
     @media (max-width: 760px) {
       .stack-md { grid-template-columns: 1fr !important; }
       .nav-links { display: none !important; }
-      .productos-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      .productos-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 14px !important; }
+      #productos { padding-left: 16px !important; padding-right: 16px !important; }
       .exp-bg-desktop { display: none !important; }
       .exp-bg-mobile { display: block !important; }
       .nav-cta { display: none !important; }
@@ -66,7 +67,8 @@
       .exp-icon { display: none; }
 
       /* Visitas cards lado a lado en mobile */
-      .visitas-cards { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 16px !important; }
+      #visitas { padding-left: 16px !important; padding-right: 16px !important; }
+      .visitas-cards { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
       .visitas-cards > div:nth-child(3) { grid-column: 1 / -1; }
     }
   </style>
@@ -137,15 +139,29 @@
   </section>
 
   <!-- HISTORIA -->
-  <section id="historia" style="padding:clamp(72px,10vw,140px) clamp(24px,6vw,80px); background:var(--cream);">
+  <section id="historia" style="padding:clamp(72px,10vw,140px) clamp(24px,6vw,80px); background:var(--paper);">
     <div class="stack-md" data-reveal="1" style="max-width:1220px; margin:0 auto; display:grid; grid-template-columns:minmax(280px,1fr) minmax(300px,1.1fr); gap:clamp(40px,6vw,88px); align-items:center;">
       <image-slot id="historia-familia" class="familia-image" shape="rounded" radius="18" placeholder="Foto de la familia en el campo" style="width:100%; aspect-ratio:4/5; box-shadow:0 24px 48px -20px rgba(44,39,23,0.35);" src="/uploads/familia.jpeg"></image-slot>
       <div>
         <div class="section-label" style="font-size:13px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--green-mid); margin-bottom:14px;">Nuestra historia</div>
         <h2 style="font-family:'Piazzolla',serif; font-weight:600; font-size:clamp(30px,4vw,44px); line-height:1.1; margin:0 0 26px; color:var(--green-deep);">Un sueño familiar que empezó con una mozzarella</h2>
-        <p style="font-size:17px; line-height:1.75; color:var(--ink-soft); margin:0 0 20px;">Todo nació en 2007, con un sueño sencillo: hacer la mozzarella para la pizzería de la familia. Los primeros pasos del tambo fueron en Santiago del Estero, aprendiendo el oficio día a día.</p>
-        <p style="font-size:17px; line-height:1.75; color:var(--ink-soft); margin:0 0 20px;">En 2017 tomamos la decisión de subir el tambo a Tafí del Valle, en Tucumán, en busca del aire limpio y los pastos de altura que hoy le dan su carácter a nuestra leche.</p>
-        <p style="font-size:17px; line-height:1.75; color:var(--ink-soft); margin:0;">Hoy, la segunda generación de la familia sigue al frente del tambo, con el mismo trabajo de todos los días y el mismo cariño por la tierra y los animales que lo empezó todo.</p>
+        <div class="historia-timeline">
+          <div style="position:relative; padding-left:30px; padding-bottom:30px; border-left:2px solid rgba(44,39,23,0.18);">
+            <span style="position:absolute; left:-8px; top:6px; width:14px; height:14px; border-radius:50%; background:var(--green-mid); border:3px solid var(--paper);"></span>
+            <div style="font-family:'Piazzolla',serif; font-size:26px; font-weight:700; line-height:1; color:var(--green-mid); margin-bottom:10px;">2007</div>
+            <p style="font-size:17px; line-height:1.75; color:var(--ink-soft); margin:0;">Todo empezó con un sueño sencillo: hacer la mozzarella para la pizzería de la familia. Los primeros pasos del tambo fueron en Santiago del Estero, aprendiendo el oficio día a día.</p>
+          </div>
+          <div style="position:relative; padding-left:30px; padding-bottom:30px; border-left:2px solid rgba(44,39,23,0.18);">
+            <span style="position:absolute; left:-8px; top:6px; width:14px; height:14px; border-radius:50%; background:var(--green-mid); border:3px solid var(--paper);"></span>
+            <div style="font-family:'Piazzolla',serif; font-size:26px; font-weight:700; line-height:1; color:var(--green-mid); margin-bottom:10px;">2017</div>
+            <p style="font-size:17px; line-height:1.75; color:var(--ink-soft); margin:0;">Subimos el tambo a Tafí del Valle, en Tucumán, en busca del aire limpio y los pastos de altura que hoy le dan su carácter a nuestra leche.</p>
+          </div>
+          <div style="position:relative; padding-left:30px; border-left:2px solid transparent;">
+            <span style="position:absolute; left:-8px; top:6px; width:14px; height:14px; border-radius:50%; background:var(--green-mid); border:3px solid var(--paper);"></span>
+            <div style="font-family:'Piazzolla',serif; font-size:26px; font-weight:700; line-height:1; color:var(--green-mid); margin-bottom:10px;">Hoy</div>
+            <p style="font-size:17px; line-height:1.75; color:var(--ink-soft); margin:0;">La segunda generación de la familia sigue al frente del tambo, con el mismo trabajo de todos los días y el mismo cariño por la tierra y los animales que lo empezó todo.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
