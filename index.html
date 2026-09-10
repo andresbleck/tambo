@@ -18,7 +18,7 @@
     @media (max-width: 760px) {
       .stack-md { grid-template-columns: 1fr !important; }
       .nav-links { display: none !important; }
-      .productos-grid { grid-template-columns: 1fr !important; }
+      .productos-grid { grid-template-columns: repeat(2, 1fr) !important; }
       .exp-bg-desktop { display: none !important; }
       .exp-bg-mobile { display: block !important; }
       .nav-cta { display: none !important; }
@@ -26,7 +26,10 @@
       .hero-section { justify-content: center !important; }
       .hero-text-block { padding-top: 28px !important; padding-bottom: 28px !important; background: none !important; backdrop-filter: none !important; border-radius: 0 !important; transform: none !important; margin-top: 0 !important; }
       .hero-scroll-indicator { display: none !important; }
-      .hero-section { min-height: 72vh !important; }
+      .hero-section { min-height: 100vh !important; min-height: 100dvh !important; }
+      .hero-text-block > div:first-child { margin-bottom: 46px !important; }
+      .hero-text-block h1 { font-size: clamp(52px, 14vw, 68px) !important; margin-bottom: 32px !important; text-shadow: 0 2px 8px rgba(0,0,0,0.4), 0 5px 26px rgba(0,0,0,0.45) !important; }
+      .hero-text-block p { margin-bottom: 54px !important; text-shadow: 0 2px 8px rgba(0,0,0,0.4), 0 4px 16px rgba(0,0,0,0.35) !important; }
     }
     .mobile-menu { position: fixed; top: 0; right: 0; height: 100vh; width: min(78vw, 320px); transform: translateX(100%); transition: transform .3s ease; z-index: 60; box-shadow: -8px 0 24px rgba(0,0,0,0.15); }
     .mobile-menu.open { transform: translateX(0); }
@@ -61,6 +64,10 @@
     .exp-icon { display: flex; }
     @media (max-width: 760px) {
       .exp-icon { display: none; }
+
+      /* Visitas cards lado a lado en mobile */
+      .visitas-cards { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 16px !important; }
+      .visitas-cards > div:nth-child(3) { grid-column: 1 / -1; }
     }
   </style>
   <script src="./image-slot.js"></script>
@@ -98,7 +105,9 @@
       <a href="#productos" onClick="{{ closeMenu }}" style="padding:14px 0; border-top:1px solid var(--line); color:var(--green-deep); text-decoration:none; font-size:16px; font-weight:600;">Productos</a>
       <a href="#visitas" onClick="{{ closeMenu }}" style="padding:14px 0; border-top:1px solid var(--line); color:var(--green-deep); text-decoration:none; font-size:16px; font-weight:600;">Visitas</a>
       <a href="#contacto" onClick="{{ closeMenu }}" style="padding:14px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); color:var(--green-deep); text-decoration:none; font-size:16px; font-weight:600;">Contacto</a>
-      <a href="{{ waLink }}" target="_blank" style="margin-top:24px; text-align:center; {{ ctaFillSmall }}">Reservar visita</a>
+      <div style="margin-top:24px; display:flex; flex-direction:column;">
+        <a href="{{ waLink }}" target="_blank" onClick="{{ closeMenu }}" style="{{ ctaFillSmall }}">Reservar visita</a>
+      </div>
     </div>
   </nav>
 
@@ -111,7 +120,7 @@
       <image-slot id="hero-bg-mobile" shape="rect" placeholder="Foto del tambo (versión vertical, mobile)" style="width:100%; height:100%;" src="/uploads/hero-responsive.jpg"></image-slot>
     </div>
     <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(14,12,7,0.54) 0%, rgba(14,12,7,0.32) 30%, rgba(14,12,7,0.41) 55%, rgba(14,12,7,0.58) 100%); pointer-events:none;"></div>
-    <div style="position:absolute; inset:0; background:radial-gradient(ellipse 65% 50% at 50% 55%, rgba(8,7,4,0.62) 0%, rgba(8,7,4,0.15) 55%, rgba(8,7,4,0) 80%); pointer-events:none;"></div>
+    <div class="hero-vignette" style="position:absolute; inset:0; background:radial-gradient(ellipse 65% 50% at 50% 55%, rgba(8,7,4,0.62) 0%, rgba(8,7,4,0.15) 55%, rgba(8,7,4,0) 80%); pointer-events:none;"></div>
     <div class="hero-text-block" style="position:relative; z-index:2; padding:0 clamp(24px,6vw,80px); color:#fbf6ea; pointer-events:none; display:flex; flex-direction:column; align-items:center; transform:translateY(65px);">
       <div style="display:inline-flex; align-items:center; gap:10px; padding:8px 18px; border:1px solid rgba(251,246,234,0.4); border-radius:999px; font-size:12px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:32px; background:rgba(16,14,8,0.3); backdrop-filter:blur(4px);">2.782 m · Tafí del Valle</div>
       <h1 style="font-family:'Piazzolla',serif; font-weight:600; letter-spacing:-0.01em; font-size:clamp(42px,7vw,86px); line-height:1.05; margin:0 0 22px; text-shadow:0 4px 28px rgba(0,0,0,0.5);">Tambo<br/>La Sofía</h1>
@@ -157,26 +166,26 @@
         <h2 style="font-family:'Piazzolla',serif; font-weight:600; font-size:clamp(30px,4vw,44px); line-height:1.15; margin:0; color:#fbf6ea;">Tecnología al servicio del bienestar animal</h2>
       </div>
       <div data-reveal="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:clamp(32px,5vw,56px);">
-        <div>
+        <div style="padding-bottom:clamp(32px,5vw,56px); border-bottom:2px solid rgba(251,246,234,0.15);">
           <div class="exp-icon" style="width:52px; height:52px; border-radius:14px; background:rgba(251,246,234,0.12); align-items:center; justify-content:center; margin-bottom:20px;">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fbf6ea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="4"/><path d="M8 12.5c-1.5 1-2 3-2 5.5h12c0-2.5-.5-4.5-2-5.5"/><path d="M9 21h6"/></svg>
           </div>
           <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:22px; margin:0 0 12px; color:#fbf6ea;">Ordeñe robotizado</h3>
-          <p style="font-size:16px; line-height:1.7; color:#dbe3c4; margin:0;">Cada vaca decide cuándo quiere ser ordeñada. Va sola hasta el robot, las veces que necesita, sin horarios impuestos ni filas. El sistema hace el resto.</p>
+          <p style="font-size:17px; line-height:1.7; color:#dbe3c4; margin:0;">Cada vaca decide cuándo quiere ser ordeñada. Va sola hasta el robot, las veces que necesita, sin horarios impuestos ni filas. El sistema hace el resto.</p>
         </div>
-        <div>
+        <div style="padding-bottom:clamp(32px,5vw,56px); border-bottom:2px solid rgba(251,246,234,0.15);">
           <div class="exp-icon" style="width:52px; height:52px; border-radius:14px; background:rgba(251,246,234,0.12); align-items:center; justify-content:center; margin-bottom:20px;">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fbf6ea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18l5-9 3 4 3-6 4 7 3-5"/><path d="M3 18h18"/></svg>
           </div>
           <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:22px; margin:0 0 12px; color:#fbf6ea;">Altura única</h3>
-          <p style="font-size:16px; line-height:1.7; color:#dbe3c4; margin:0;">Somos el tambo robotizado más alto del mundo. El clima y los pastos de altura de Tafí del Valle marcan el sabor de nuestra leche.</p>
+          <p style="font-size:17px; line-height:1.7; color:#dbe3c4; margin:0;">Somos el tambo robotizado más alto del mundo. El clima y los pastos de altura de Tafí del Valle marcan el sabor de nuestra leche.</p>
         </div>
         <div>
           <div class="exp-icon" style="width:52px; height:52px; border-radius:14px; background:rgba(251,246,234,0.12); align-items:center; justify-content:center; margin-bottom:20px;">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fbf6ea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h11"/></svg>
           </div>
           <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:22px; margin:0 0 12px; color:#fbf6ea;">Trazabilidad</h3>
-          <p style="font-size:16px; line-height:1.7; color:#dbe3c4; margin:0;">Cada ordeñe queda registrado por el sistema robotizado. Sabemos qué vaca, qué día y en qué condiciones se produjo cada litro de leche que sale del tambo.</p>
+          <p style="font-size:17px; line-height:1.7; color:#dbe3c4; margin:0;">Cada ordeñe queda registrado por el sistema robotizado. Sabemos qué vaca, qué día y en qué condiciones se produjo cada litro de leche que sale del tambo.</p>
         </div>
       </div>
     </div>
@@ -192,12 +201,12 @@
       <div data-reveal="1" class="productos-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:32px;">
         <sc-for list="{{ productos }}" as="p" hint-placeholder-count="6">
           <div style="background:var(--cream); border-radius:16px; overflow:hidden; border:1px solid var(--line);">
-            <div style="position:relative; width:100%; aspect-ratio:4/3;">
+            <div style="position:relative; width:100%; aspect-ratio:1/1;">
               <image-slot id="{{ p.slotId }}" shape="rect" placeholder="{{ p.placeholder }}" style="width:100%; height:100%;" src="{{ p.imagen }}"></image-slot>
             </div>
-            <div style="padding:22px 24px 26px;">
-              <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:20px; margin:0 0 8px; color:var(--green-deep);">{{ p.nombre }}</h3>
-              <p style="font-size:15px; line-height:1.6; color:var(--ink-soft); margin:0;">{{ p.desc }}</p>
+            <div style="padding:16px 18px 20px;">
+              <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:18px; margin:0 0 6px; color:var(--green-deep);">{{ p.nombre }}</h3>
+              <p style="font-size:14px; line-height:1.5; color:var(--ink-soft); margin:0;">{{ p.desc }}</p>
             </div>
           </div>
         </sc-for>
@@ -213,19 +222,32 @@
         <h2 style="font-family:'Piazzolla',serif; font-weight:600; font-size:clamp(30px,4vw,44px); line-height:1.15; margin:0 0 26px; color:var(--green-deep);">Vení a conocer el tambo</h2>
         <p style="font-size:17px; line-height:1.75; color:var(--ink-soft); margin:0 0 16px;">Abrimos todos los días de 10 a 19 hs. El ordeñe robotizado se puede ver a las 16:30. La actividad tiene un costo por persona.</p>
         <p style="font-size:16px; line-height:1.7; color:var(--ink-soft); margin:0 0 32px;">Podés ver a los robots trabajando, conocer a las vacas y la guachera, y darle la mamadera a los terneros.</p>
-        <a href="{{ waLink }}" target="_blank" style="{{ ctaFillLarge }}">Reservar por WhatsApp</a>
-      </div>
-      <div style="display:flex; flex-direction:column; gap:20px;">
-        <div style="background:var(--paper); border-radius:16px; padding:28px 30px; border:1px solid var(--line);">
-          <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:19px; margin:0 0 10px; color:var(--green-deep);">Visita guiada</h3>
-          <p style="font-size:15px; line-height:1.65; color:var(--ink-soft); margin:0;">Pensada para contingentes y grupos. Un guía acompaña todo el recorrido y explica el funcionamiento del tambo.</p>
+        <div style="text-align:center;">
+          <a href="{{ waLink }}" target="_blank" style="{{ ctaFillLarge }}">Reservar por WhatsApp</a>
         </div>
-        <div style="background:var(--paper); border-radius:16px; padding:28px 30px; border:1px solid var(--line);">
-          <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:19px; margin:0 0 10px; color:var(--green-deep);">Visita autoguiada</h3>
-          <p style="font-size:15px; line-height:1.65; color:var(--ink-soft); margin:0;">Ideal para familias. Recorré el tambo a tu ritmo, con carteles y señalización en todo el camino.</p>
+      </div>
+      <div class="visitas-cards" style="display:flex; flex-direction:column; gap:20px;">
+        <div style="background:var(--paper); border-radius:16px; padding:20px 22px; border:1px solid var(--line);">
+          <div style="margin-bottom:12px; display:flex; justify-content:center;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--green-deep)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 2h12a2 2 0 0 1 2 2v4h2a2 2 0 0 1 2 2v6"/><rect x="4" y="4" width="12" height="14" rx="1"/><line x1="8" y1="8" x2="12" y2="8"/><line x1="8" y1="12" x2="12" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/><circle cx="16" cy="14" r="4"/><path d="M19 17l2 2"/>
+            </svg>
+          </div>
+          <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:19px; margin:0 0 8px; color:var(--green-deep); text-align:center;">Visita guiada</h3>
+          <p style="font-size:15px; line-height:1.6; color:var(--ink-soft); margin:0; text-align:center;">Para escuelas y grupos. Un guía acompaña todo el recorrido.</p>
+        </div>
+        <div style="background:var(--paper); border-radius:16px; padding:20px 22px; border:1px solid var(--line);">
+          <div style="margin-bottom:12px; display:flex; justify-content:center;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="var(--green-deep)">
+              <circle cx="12" cy="6" r="4"/><path d="M12 12c-4.4 0-8 2.7-8 6v4c0 .6.4 1 1 1h14c.6 0 1-.4 1-1v-4c0-3.3-3.6-6-8-6z"/>
+            </svg>
+          </div>
+          <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:19px; margin:0 0 8px; color:var(--green-deep); text-align:center;">Visita autoguiada</h3>
+          <p style="font-size:15px; line-height:1.6; color:var(--ink-soft); margin:0; text-align:center;">Ideal para familias. Recorré a tu ritmo con señalización.</p>
         </div>
         <div style="background:var(--wood); border-radius:16px; padding:24px 30px;">
-          <p style="font-size:14px; line-height:1.6; color:#f3ecd9; margin:0; font-weight:600;">Qué se puede hacer: ver los robots de ordeñe, ver las vacas, conocer la guachera y darle la mamadera a los terneros.</p>
+          <p style="font-size:15px; font-weight:600; color:#f3ecd9; margin:0 0 12px; text-align:center;">¿Qué se puede hacer?</p>
+          <p style="font-size:14px; line-height:1.8; color:#f3ecd9; margin:0; text-align:center;">Ver los robots de ordeñe, conocer a las vacas, visitar la guachera y darle la mamadera a los terneros.</p>
         </div>
       </div>
     </div>
