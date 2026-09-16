@@ -4,6 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<!-- Vercel Web Analytics -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <x-dc>
@@ -15,6 +20,13 @@
   <style>
     body { margin: 0; -webkit-font-smoothing: antialiased; }
     ::selection { background: #dcc9a3; }
+
+    /* Desplazamiento suave al navegar entre secciones */
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+
     @media (max-width: 760px) {
       .stack-md { grid-template-columns: 1fr !important; }
       .nav-links { display: none !important; }
@@ -63,6 +75,7 @@
     }
 
     .exp-icon { display: flex; }
+    .br-mobile { display: none; }
     @media (max-width: 760px) {
       .exp-icon { display: none; }
 
@@ -70,6 +83,7 @@
       #visitas { padding-left: 16px !important; padding-right: 16px !important; }
       .visitas-cards { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
       .visitas-cards > div:nth-child(3) { grid-column: 1 / -1; }
+      .br-mobile { display: inline !important; }
     }
   </style>
   <script src="./image-slot.js"></script>
@@ -234,7 +248,7 @@
   <section id="visitas" style="padding:clamp(72px,10vw,140px) clamp(24px,6vw,80px); background:var(--cream);">
     <div class="stack-md" data-reveal="1" style="max-width:1220px; margin:0 auto; display:grid; grid-template-columns:minmax(280px,1fr) minmax(320px,1fr); gap:clamp(40px,6vw,88px); align-items:start;">
       <div>
-        <div class="section-label" style="font-size:13px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--green-mid); margin-bottom:14px;">Visitas guiadas</div>
+        <div class="section-label" style="font-size:13px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--green-mid); margin-bottom:14px;">Visitas</div>
         <h2 style="font-family:'Piazzolla',serif; font-weight:600; font-size:clamp(30px,4vw,44px); line-height:1.15; margin:0 0 26px; color:var(--green-deep);">Vení a conocer el tambo</h2>
         <p style="font-size:17px; line-height:1.75; color:var(--ink-soft); margin:0 0 16px;">Abrimos todos los días de 10 a 19 hs. El ordeñe robotizado se puede ver a las 16:30. La actividad tiene un costo por persona.</p>
         <p style="font-size:16px; line-height:1.7; color:var(--ink-soft); margin:0 0 32px;">Podés ver a los robots trabajando, conocer a las vacas y la guachera, y darle la mamadera a los terneros.</p>
@@ -249,7 +263,7 @@
               <path d="M4 2h12a2 2 0 0 1 2 2v4h2a2 2 0 0 1 2 2v6"/><rect x="4" y="4" width="12" height="14" rx="1"/><line x1="8" y1="8" x2="12" y2="8"/><line x1="8" y1="12" x2="12" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/><circle cx="16" cy="14" r="4"/><path d="M19 17l2 2"/>
             </svg>
           </div>
-          <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:19px; margin:0 0 8px; color:var(--green-deep); text-align:center;">Visita guiada</h3>
+          <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:19px; margin:0 0 8px; color:var(--green-deep); text-align:center;">Visita<br class="br-mobile"> guiada</h3>
           <p style="font-size:15px; line-height:1.6; color:var(--ink-soft); margin:0; text-align:center;">Para escuelas y grupos. Un guía acompaña todo el recorrido.</p>
         </div>
         <div style="background:var(--paper); border-radius:16px; padding:20px 22px; border:1px solid var(--line);">
@@ -364,12 +378,12 @@ class Component extends DCLogic {
     const wa = this.props.whatsappNumber ?? '5493816522774';
     const msg = encodeURIComponent('Hola! Quiero reservar una visita al Tambo Señora Sofía.');
     const productos = [
-      { slotId: 'prod-mozzarella', nombre: 'Mozzarella', desc: 'La que le dio origen al tambo: elaborada a diario para pizzerías y para la mesa de todos los días.', placeholder: 'Foto de mozzarella', imagen: '/uploads/products/mozzarella-src.jpeg' },
-      { slotId: 'prod-quesos-tafi', nombre: 'Quesos de Tafí', desc: 'Con denominación de origen. Maduración lenta y el sabor propio de los pastos de altura.', placeholder: 'Foto de queso de Tafí', imagen: '/uploads/products/quesoq.jpg' },
-      { slotId: 'prod-quesillo', nombre: 'Quesillo', desc: 'Fresco y suave, tal como se hace en el norte, ideal con dulce de leche o miel.', placeholder: 'Foto de quesillo', imagen: '/uploads/products/quesillo-src.jpeg' },
+      { slotId: 'prod-mozzarella', nombre: 'Mozzarella', desc: 'La que le dio origen al tambo: elaborada para todos los días.', placeholder: 'Foto de mozzarella', imagen: '/uploads/products/mozzarella-src.jpeg' },
+      { slotId: 'prod-quesos-tafi', nombre: 'Quesos de Tafí', desc: 'De maduración lenta y el sabor propio de los pastos de altura.', placeholder: 'Foto de queso de Tafí', imagen: '/uploads/products/quesoq.jpg' },
+      { slotId: 'prod-quesillo', nombre: 'Quesillo', desc: 'Fresco y sabroso, ideal para picadas o para acompañar los postres.', placeholder: 'Foto de quesillo', imagen: '/uploads/products/quesillo-src.jpeg' },
       { slotId: 'prod-dulce-leche', nombre: 'Dulce de leche', desc: 'Cocido despacio, con la leche de nuestras propias vacas.', placeholder: 'Foto de dulce de leche', imagen: '/uploads/products/dulcedeleche-src.jpeg' },
       { slotId: 'prod-leche-entera', nombre: 'Leche entera', desc: 'Directo del tambo, con la trazabilidad de cada ordeñe robotizado.', placeholder: 'Foto de leche entera', imagen: '/uploads/products/leche.webp' },
-      { slotId: 'prod-leche-choco', nombre: 'Leche chocolatada', desc: 'La misma leche de siempre, con un toque de cacao para los más chicos.', placeholder: 'Foto de leche chocolatada', imagen: '/uploads/products/chocolatada.webp' },
+      { slotId: 'prod-leche-choco', nombre: 'Chocolatada', desc: 'La misma leche casera, con cacao para los más chicos.', placeholder: 'Foto de leche chocolatada', imagen: '/uploads/products/chocolatada.webp' },
     ];
     const base = { textDecoration: 'none', fontWeight: 700, borderRadius: '999px', display: 'inline-block', textAlign: 'center', transition: 'opacity .15s ease' };
     return {
@@ -384,6 +398,33 @@ class Component extends DCLogic {
     };
   }
 }
+</script>
+<script>
+  // En mobile: al tocar un item del menú, esperar a que el panel termine de cerrarse
+  // antes de desplazar la página, para que no se superpongan los dos movimientos.
+  (function () {
+    var MENU_SELECTOR = '.mobile-menu';
+    var CLOSE_DELAY = 300; // igual a la transición de .mobile-menu
+
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!link || !link.closest(MENU_SELECTOR)) return;
+
+      var hash = link.getAttribute('href');
+      if (hash === '#') return;
+
+      var target = document.querySelector(hash);
+      if (!target) return;
+
+      e.preventDefault(); // el closeMenu del propio link ya corrió
+
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      setTimeout(function () {
+        target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+        history.replaceState(null, '', hash);
+      }, reduced ? 0 : CLOSE_DELAY);
+    });
+  })();
 </script>
 </body>
 </html>
