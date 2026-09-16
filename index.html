@@ -62,7 +62,7 @@
       #historia .stack-md > image-slot { display: none !important; }
     }
 
-    .section-label { font-size: 13px; }
+    .section-label { font-size: 17px; }
     @media (max-width: 760px) {
       .section-label { font-size: 16px !important; }
     }
@@ -74,6 +74,14 @@
       .footer-mobile { display: flex !important; }
     }
 
+    .visitas-cards { margin-top: 28px; }
+    .visitas-cards > div:nth-child(3) { grid-column: 1 / -1; }
+    .visita-card { display: flex; flex-direction: column; justify-content: center; }
+    .exp-card { padding-bottom: 0; border-bottom: 0; }
+    @media (max-width: 760px) {
+      .exp-card { padding-bottom: clamp(32px,5vw,56px); border-bottom: 2px solid rgba(251,246,234,0.15); }
+    }
+
     .exp-icon { display: flex; }
     .br-mobile { display: none; }
     @media (max-width: 760px) {
@@ -81,8 +89,8 @@
 
       /* Visitas cards lado a lado en mobile */
       #visitas { padding-left: 16px !important; padding-right: 16px !important; }
-      .visitas-cards { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
-      .visitas-cards > div:nth-child(3) { grid-column: 1 / -1; }
+      .visitas-cards { gap: 12px !important; margin-top: 0 !important; }
+      .visitas-cta { text-align: center !important; }
       .br-mobile { display: inline !important; }
     }
   </style>
@@ -157,7 +165,7 @@
     <div class="stack-md" data-reveal="1" style="max-width:1220px; margin:0 auto; display:grid; grid-template-columns:minmax(280px,1fr) minmax(300px,1.1fr); gap:clamp(40px,6vw,88px); align-items:center;">
       <image-slot id="historia-familia" class="familia-image" shape="rounded" radius="18" placeholder="Foto de la familia en el campo" style="width:100%; aspect-ratio:4/5; box-shadow:0 24px 48px -20px rgba(44,39,23,0.35);" src="/uploads/familia.jpeg"></image-slot>
       <div>
-        <div class="section-label" style="font-size:13px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--green-mid); margin-bottom:14px;">Nuestra historia</div>
+        <div class="section-label" style="font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--green-mid); margin-bottom:14px;">Nuestra historia</div>
         <h2 style="font-family:'Piazzolla',serif; font-weight:600; font-size:clamp(30px,4vw,44px); line-height:1.1; margin:0 0 26px; color:var(--green-deep);">Un sueño familiar que empezó con una mozzarella</h2>
         <div class="historia-timeline">
           <div style="position:relative; padding-left:30px; padding-bottom:30px; border-left:2px solid rgba(44,39,23,0.18);">
@@ -192,23 +200,23 @@
     <div class="exp-bg-mobile" style="position:absolute; inset:0; background:rgba(60,44,28,0.82); display:none;"></div>
     <div style="position:relative; z-index:2; max-width:1220px; margin:0 auto;">
       <div style="max-width:680px; margin-bottom:clamp(48px,6vw,72px);">
-        <div class="section-label" style="font-size:13px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#c7d4ac; margin-bottom:14px;">La experiencia del tambo</div>
+        <div class="section-label" style="font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#c7d4ac; margin-bottom:14px;">La experiencia del tambo</div>
         <h2 style="font-family:'Piazzolla',serif; font-weight:600; font-size:clamp(30px,4vw,44px); line-height:1.15; margin:0; color:#fbf6ea;">Tecnología al servicio del bienestar animal</h2>
       </div>
       <div data-reveal="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:clamp(32px,5vw,56px);">
-        <div style="padding-bottom:clamp(32px,5vw,56px); border-bottom:2px solid rgba(251,246,234,0.15);">
+        <div class="exp-card">
           <div class="exp-icon" style="width:52px; height:52px; border-radius:14px; background:rgba(251,246,234,0.12); align-items:center; justify-content:center; margin-bottom:20px;">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fbf6ea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="4"/><path d="M8 12.5c-1.5 1-2 3-2 5.5h12c0-2.5-.5-4.5-2-5.5"/><path d="M9 21h6"/></svg>
           </div>
           <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:22px; margin:0 0 12px; color:#fbf6ea;">Ordeñe robotizado</h3>
           <p style="font-size:17px; line-height:1.7; color:#dbe3c4; margin:0;">Cada vaca decide cuándo quiere ser ordeñada. Va sola hasta el robot, las veces que necesita, sin horarios impuestos ni filas. El sistema hace el resto.</p>
         </div>
-        <div style="padding-bottom:clamp(32px,5vw,56px); border-bottom:2px solid rgba(251,246,234,0.15);">
+        <div class="exp-card">
           <div class="exp-icon" style="width:52px; height:52px; border-radius:14px; background:rgba(251,246,234,0.12); align-items:center; justify-content:center; margin-bottom:20px;">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fbf6ea" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18l5-9 3 4 3-6 4 7 3-5"/><path d="M3 18h18"/></svg>
           </div>
           <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:22px; margin:0 0 12px; color:#fbf6ea;">Altura única</h3>
-          <p style="font-size:17px; line-height:1.7; color:#dbe3c4; margin:0;">Somos el tambo robotizado más alto del mundo. El clima y los pastos de altura de Tafí del Valle marcan el sabor de nuestra leche.</p>
+          <p style="font-size:17px; line-height:1.7; color:#dbe3c4; margin:0;">Somos el tambo robotizado más alto del mundo. El clima y los pastos de altura de Tafí del Valle marcan el sabor característico de nuestra leche.</p>
         </div>
         <div>
           <div class="exp-icon" style="width:52px; height:52px; border-radius:14px; background:rgba(251,246,234,0.12); align-items:center; justify-content:center; margin-bottom:20px;">
@@ -225,7 +233,7 @@
   <section id="productos" style="padding:clamp(72px,10vw,140px) clamp(24px,6vw,80px); background:var(--paper);">
     <div style="max-width:1220px; margin:0 auto;">
       <div style="max-width:680px; margin-bottom:clamp(48px,6vw,72px);">
-        <div class="section-label" style="font-size:13px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--green-mid); margin-bottom:14px;">Nuestros productos</div>
+        <div class="section-label" style="font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--green-mid); margin-bottom:14px;">Nuestros productos</div>
         <h2 style="font-family:'Piazzolla',serif; font-weight:600; font-size:clamp(30px,4vw,44px); line-height:1.15; margin:0; color:var(--green-deep);">Hechos a mano, con la leche de nuestras vacas</h2>
       </div>
       <div data-reveal="1" class="productos-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:32px;">
@@ -248,27 +256,27 @@
   <section id="visitas" style="padding:clamp(72px,10vw,140px) clamp(24px,6vw,80px); background:var(--cream);">
     <div class="stack-md" data-reveal="1" style="max-width:1220px; margin:0 auto; display:grid; grid-template-columns:minmax(280px,1fr) minmax(320px,1fr); gap:clamp(40px,6vw,88px); align-items:start;">
       <div>
-        <div class="section-label" style="font-size:13px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--green-mid); margin-bottom:14px;">Visitas</div>
+        <div class="section-label" style="font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--green-mid); margin-bottom:14px;">Visitas</div>
         <h2 style="font-family:'Piazzolla',serif; font-weight:600; font-size:clamp(30px,4vw,44px); line-height:1.15; margin:0 0 26px; color:var(--green-deep);">Vení a conocer el tambo</h2>
         <p style="font-size:17px; line-height:1.75; color:var(--ink-soft); margin:0 0 16px;">Abrimos todos los días de 10 a 19 hs. El ordeñe robotizado se puede ver a las 16:30. La actividad tiene un costo por persona.</p>
         <p style="font-size:16px; line-height:1.7; color:var(--ink-soft); margin:0 0 32px;">Podés ver a los robots trabajando, conocer a las vacas y la guachera, y darle la mamadera a los terneros.</p>
-        <div style="text-align:center;">
+        <div class="visitas-cta" style="text-align:left;">
           <a href="{{ waLink }}" target="_blank" style="{{ ctaFillLarge }}">Reservar por WhatsApp</a>
         </div>
       </div>
-      <div class="visitas-cards" style="display:flex; flex-direction:column; gap:20px;">
-        <div style="background:var(--paper); border-radius:16px; padding:20px 22px; border:1px solid var(--line);">
-          <div style="margin-bottom:12px; display:flex; justify-content:center;">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--green-deep)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <div class="visitas-cards" style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+        <div class="visita-card" style="background:var(--paper); border-radius:16px; padding:22px 20px; border:1px solid var(--line);">
+          <div style="margin-bottom:10px; display:flex; justify-content:center;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--green-deep)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 2h12a2 2 0 0 1 2 2v4h2a2 2 0 0 1 2 2v6"/><rect x="4" y="4" width="12" height="14" rx="1"/><line x1="8" y1="8" x2="12" y2="8"/><line x1="8" y1="12" x2="12" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/><circle cx="16" cy="14" r="4"/><path d="M19 17l2 2"/>
             </svg>
           </div>
           <h3 style="font-family:'Piazzolla',serif; font-weight:600; font-size:19px; margin:0 0 8px; color:var(--green-deep); text-align:center;">Visita<br class="br-mobile"> guiada</h3>
           <p style="font-size:15px; line-height:1.6; color:var(--ink-soft); margin:0; text-align:center;">Para escuelas y grupos. Un guía acompaña todo el recorrido.</p>
         </div>
-        <div style="background:var(--paper); border-radius:16px; padding:20px 22px; border:1px solid var(--line);">
-          <div style="margin-bottom:12px; display:flex; justify-content:center;">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="var(--green-deep)">
+        <div class="visita-card" style="background:var(--paper); border-radius:16px; padding:22px 20px; border:1px solid var(--line);">
+          <div style="margin-bottom:10px; display:flex; justify-content:center;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="var(--green-deep)">
               <circle cx="12" cy="6" r="4"/><path d="M12 12c-4.4 0-8 2.7-8 6v4c0 .6.4 1 1 1h14c.6 0 1-.4 1-1v-4c0-3.3-3.6-6-8-6z"/>
             </svg>
           </div>
@@ -287,7 +295,7 @@
   <section id="contacto" style="padding:clamp(72px,10vw,140px) clamp(24px,6vw,80px); background:var(--green-deep); color:#f3ecd9;">
     <div style="max-width:1220px; margin:0 auto;">
       <div style="max-width:680px; margin-bottom:clamp(48px,6vw,72px);">
-        <div class="section-label" style="font-size:13px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#c7d4ac; margin-bottom:14px;">Ubicación y contacto</div>
+        <div class="section-label" style="font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#c7d4ac; margin-bottom:14px;">Ubicación y contacto</div>
         <h2 style="font-family:'Piazzolla',serif; font-weight:600; font-size:clamp(28px,4vw,40px); line-height:1.15; margin:0; color:#fbf6ea;">Te esperamos en el valle</h2>
       </div>
       <div class="stack-md" data-reveal="1" style="display:grid; grid-template-columns:minmax(280px,0.85fr) minmax(320px,1.15fr); gap:clamp(40px,6vw,72px); align-items:stretch; margin-bottom:clamp(32px,5vw,48px);">
